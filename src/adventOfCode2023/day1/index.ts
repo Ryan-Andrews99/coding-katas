@@ -15,7 +15,7 @@ export const wordsToNums: Record<string, number> = {
 };
 
 // Start solution
-export const isNumber = (char: string): boolean => !!Number(char);
+export const isNumber = (char: string): boolean => !isNaN(Number(char));
 
 export const combineFirstAndLastDigit = (nums: string[]): number =>
   Number(`${nums[0]}${nums[nums.length - 1]}`);
