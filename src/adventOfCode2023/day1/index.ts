@@ -3,17 +3,16 @@ import { readTxtFile } from "../util/readTxtFile";
 // const input = readTxtFile('src/adventOfCode2023/day1/input.txt')
 
 export const wordsToNums: Record<string, number> = {
-    one: 1,
-    two: 2,
-    three: 3,
-    four: 4,
-    five: 5,
-    six: 6,
-    seven: 7,
-    eight: 8,
-    nine: 9,
-  };
-
+  one: 1,
+  two: 2,
+  three: 3,
+  four: 4,
+  five: 5,
+  six: 6,
+  seven: 7,
+  eight: 8,
+  nine: 9,
+};
 
 // Start solution
 export const isNumber = (char: string): boolean => !!Number(char);
@@ -29,16 +28,13 @@ export const replaceWordNumbersWithDigits = (
   str.split("").reduce((ogString, char, index) => {
     if (isNumber(char)) return ogString;
     const potentialNumber = numbersAsWords.filter((number) =>
-      number.includes(`${str[index]}${str[index + 1]}`)
-    )[0]//our words are unique for >1 letter 
-    return ogString.replace(
-      potentialNumber,
-      `${wordsToNums[potentialNumber]}`,
-    );
+      number.includes(`${str[index]}${str[index + 1]}`),
+    )[0]; //our words are unique for >1 letter
+    return ogString.replace(potentialNumber, `${wordsToNums[potentialNumber]}`);
   }, str);
 
-  //Part 1
-export const returnAnswer = (input: string):number =>
+//Part 1
+export const returnAnswer = (input: string): number =>
   input
     .split("\n")
     .map((line) => line.split("").filter((char) => isNumber(char)))

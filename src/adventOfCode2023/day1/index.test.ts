@@ -87,7 +87,7 @@ describe("replaceWordNumbersWithDigits tests", () => {
         Object.keys(wordsToNums),
         wordsToNums,
       ),
-    ).toEqual("82"); // hate this test 
+    ).toEqual("82"); // hate this test
   });
 });
 
