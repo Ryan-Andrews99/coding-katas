@@ -219,7 +219,7 @@ describe("returnAnswerPart2 tests", () => {
   it("passes the test data", () => {
     expect(
       returnAnswerPart2(
-      `467..114..
+        `467..114..
       ...*......
       ..35..633.
       ......#...

@@ -7,7 +7,7 @@ export const isSymbol = (char: string): boolean =>
 
 export const returnNeighbours = (
   matrix: string[][],
-  position: number[]
+  position: number[],
 ): string[] => {
   const [row, col] = position;
   return [
@@ -24,7 +24,7 @@ export const returnNeighbours = (
 
 export const lookForNumbers = (
   matrix: string[][],
-  position: number[]
+  position: number[],
 ): string => {
   const [row, col] = position;
   let numString = matrix[row][col];
@@ -49,12 +49,12 @@ const shouldSkip = (
   char: string,
   matrix: string[][],
   rowIndex: number,
-  colIndex: number
+  colIndex: number,
 ): boolean =>
   isNumber(char) &&
   isNumber(matrix[rowIndex][colIndex + 1]) && //look ahead
   returnNeighbours(matrix, [rowIndex, colIndex + 1]).some((neighbour) =>
-    isSymbol(neighbour)
+    isSymbol(neighbour),
   );
 
 /*
@@ -73,7 +73,7 @@ export const returnAnswerPart1 = (input: string): number => {
       else if (
         isNumber(char) &&
         returnNeighbours(matrix, [rowIndex, colIndex]).some((neighbour) =>
-          isSymbol(neighbour)
+          isSymbol(neighbour),
         )
       ) {
         sum += Number(lookForNumbers(matrix, [rowIndex, colIndex]));
@@ -92,7 +92,7 @@ export const isGear = (char: string): boolean => char === "*";
 
 export const returnNeighbourCoords = (
   rowIndex: number,
-  colIndex: number
+  colIndex: number,
 ): (number | undefined)[][] =>
   [
     [rowIndex, colIndex - 1],
@@ -104,12 +104,12 @@ export const returnNeighbourCoords = (
     [rowIndex - 1, colIndex - 1],
     [rowIndex + 1, colIndex + 1],
   ].map(([rowIndex, colIndex]) =>
-    rowIndex < 0 || colIndex < 0 ? [undefined] : [rowIndex, colIndex]
+    rowIndex < 0 || colIndex < 0 ? [undefined] : [rowIndex, colIndex],
   );
 
 export const returnCoords = (
   matrix: string[][],
-  checkFunction: (char: string) => boolean
+  checkFunction: (char: string) => boolean,
 ): number[][] =>
   matrix.flatMap((row, rowIndex) =>
     row
@@ -118,32 +118,32 @@ export const returnCoords = (
           return [rowIndex, colIndex];
         } else return [];
       })
-      .filter((coord) => coord.length == 2)
+      .filter((coord) => coord.length == 2),
   );
 
 export const returnNumsFromValidGears = (
   numberCoords: number[][],
   gearCoords: number[][],
-  matrix: string[][]
+  matrix: string[][],
 ) =>
   gearCoords
     .map(([gearRow, gearCol]) =>
       returnNeighbourCoords(gearRow, gearCol).filter((neighbour) =>
         numberCoords.some((coords) =>
-          coords.every((item, index) => item === neighbour[index])
-        )
-      )
+          coords.every((item, index) => item === neighbour[index]),
+        ),
+      ),
     )
     .map((coords) =>
-      coords.map((coord) => lookForNumbers(matrix, coord as number[]))
+      coords.map((coord) => lookForNumbers(matrix, coord as number[])),
     )
     .filter((nums) => nums.length >= 2)
     .map((nums) => new Set(nums))
     .map((numSet) => Array.from(numSet))
     .filter((nums) => nums.length === 2)
-    .map(nums => nums.map(num => Number(num)) )
-    .map(nums => nums[0]*nums[1])
-    .reduce((sum, num) => sum += num)
+    .map((nums) => nums.map((num) => Number(num)))
+    .map((nums) => nums[0] * nums[1])
+    .reduce((sum, num) => (sum += num));
 
 export const returnAnswerPart2 = (input: string) => {
   const matrix = input.split("\n").map((row) => row.trim().split(""));
@@ -152,5 +152,4 @@ export const returnAnswerPart2 = (input: string) => {
   return returnNumsFromValidGears(numberCoords, gearCoords, matrix);
 };
 
-console.log(returnAnswerPart2(input))
-
+console.log(returnAnswerPart2(input));
