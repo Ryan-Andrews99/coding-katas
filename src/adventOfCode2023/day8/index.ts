@@ -53,11 +53,10 @@ export const traverseNodes = (
   if (nextNode === currentNode) {
     throw new Error("AAAA recursive hell :)");
   }
-  index++;
-  steps++;
   if (matchCondition(nextNode)) { //base case
-    return steps;
-  } else return traverseNodes(directions, nodes, matchCondition, nextNode, index, steps);
+    return steps +1;
+  } else return traverseNodes(directions, nodes, matchCondition, nextNode, index +1, steps +1); 
+  // an attempt at TCO even tho JS doesn't support it
 };
 
 
