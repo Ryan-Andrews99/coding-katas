@@ -109,23 +109,24 @@ export const handStrengthPart2 = (hand: string): number => {
           : { ...acc, [char]: acc[char] + 1 },
       {}
     );
-  const { J: jokerCount, ...cardOccurancesWithoutJokers } = cardOccurances;
+  let { J: jokerCount, ...cardOccurancesWithoutJokers } = cardOccurances;
+  jokerCount = jokerCount ?? 0
   const [firstCardCount, secondCardCount] = Object.values(
     cardOccurancesWithoutJokers
   ).sort((a, b) => b - a);
 
-  if (firstCardCount + (jokerCount ?? 0)  === 5 || jokerCount === 5) return 7;
-  else if (firstCardCount + (jokerCount ?? 0) === 4 && secondCardCount === 1)
+  if (firstCardCount + jokerCount  === 5 || jokerCount === 5) return 7;
+  else if (firstCardCount + jokerCount === 4 && secondCardCount === 1)
     return 6;
-  else if (firstCardCount + (jokerCount ?? 0) === 3 && secondCardCount === 2)
+  else if (firstCardCount + jokerCount === 3 && secondCardCount === 2)
     return 5;
-  else if (firstCardCount + (jokerCount ?? 0) === 3 && secondCardCount === 1)
+  else if (firstCardCount + jokerCount === 3 && secondCardCount === 1)
     return 4;
-  else if (firstCardCount + (jokerCount ?? 0) === 2 && secondCardCount === 2)
+  else if (firstCardCount + jokerCount === 2 && secondCardCount === 2)
     return 3;
-  else if (firstCardCount + (jokerCount ?? 0) === 2 && secondCardCount === 1)
+  else if (firstCardCount + jokerCount === 2 && secondCardCount === 1)
     return 2;
-  else if (firstCardCount + (jokerCount ?? 0) === 1 && secondCardCount === 1)
+  else if (firstCardCount + jokerCount === 1 && secondCardCount === 1)
     return 1;
   else throw new Error(`Invalid hand: ${hand}`);
 };
