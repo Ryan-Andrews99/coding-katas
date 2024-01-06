@@ -122,32 +122,31 @@ describe("part1 tests", () => {
 });
 
 describe("extrapolateBackwards", () => {
-  
-    it("extrapolates test data correctly", () => {
-      expect(
-        extrapolateBackwards([
-          [10, 13, 16, 21, 30, 45],
-          [3, 3, 5, 9, 15],
-          [0, 2, 4, 6],
-          [2, 2, 2],
-          [0, 0],
-        ]),
-      ).toStrictEqual([
-        [5, 10, 13, 16, 21, 30, 45],
-        [5, 3, 3, 5, 9, 15],
-        [-2, 0, 2, 4, 6],
-        [2, 2, 2, 2],
-        [0, 0, 0],
-      ]);
-    });
+  it("extrapolates test data correctly", () => {
+    expect(
+      extrapolateBackwards([
+        [10, 13, 16, 21, 30, 45],
+        [3, 3, 5, 9, 15],
+        [0, 2, 4, 6],
+        [2, 2, 2],
+        [0, 0],
+      ]),
+    ).toStrictEqual([
+      [5, 10, 13, 16, 21, 30, 45],
+      [5, 3, 3, 5, 9, 15],
+      [-2, 0, 2, 4, 6],
+      [2, 2, 2, 2],
+      [0, 0, 0],
+    ]);
   });
-  
-  describe("part2 tests", () => {
-    it("passes test data", () => {
-      expect(
-        part2(`0 3 6 9 12 15
+});
+
+describe("part2 tests", () => {
+  it("passes test data", () => {
+    expect(
+      part2(`0 3 6 9 12 15
             1 3 6 10 15 21
             10 13 16 21 30 45`),
-      ).toEqual(2);
-    });
+    ).toEqual(2);
   });
+});

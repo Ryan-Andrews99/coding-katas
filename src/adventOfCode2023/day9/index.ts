@@ -48,14 +48,12 @@ export const part1 = (input: string): number =>
     .map(returnHistory)
     .reduce((sum, val) => (sum += val), 0);
 
-const input = readTxtFile('src/adventOfCode2023/day9/input.txt')
-
+const input = readTxtFile("src/adventOfCode2023/day9/input.txt");
 
 let start = performance.now();
-console.log(part1(input)) // 1762065988
+console.log(part1(input)); // 1762065988
 let end = performance.now();
 console.log("part 1 took", end - start); //part 1 took 48.73225999996066
-
 
 export const extrapolateBackwards = (vals: number[][]) =>
   vals
@@ -66,23 +64,21 @@ export const extrapolateBackwards = (vals: number[][]) =>
       } else {
         const prevRow = vals[index - 1];
         const firstValOfPrevRow = prevRow[0];
-        return [...vals, [ row[0] - firstValOfPrevRow, ...row,]];
+        return [...vals, [row[0] - firstValOfPrevRow, ...row]];
       }
     }, [])
     .reverse();
 
-export const returnFirstHistory = (vals: number[][]): number =>
-  vals[0][0];
-
+export const returnFirstHistory = (vals: number[][]): number => vals[0][0];
 
 export const part2 = (input: string): number =>
-parseInput(input)
-  .map(createRanges)
-  .map(extrapolateBackwards)
-  .map(returnFirstHistory)
-  .reduce((sum, val) => (sum += val), 0);
+  parseInput(input)
+    .map(createRanges)
+    .map(extrapolateBackwards)
+    .map(returnFirstHistory)
+    .reduce((sum, val) => (sum += val), 0);
 
 start = performance.now();
-console.log(part2(input)) // 1066
+console.log(part2(input)); // 1066
 end = performance.now();
-console.log("part 2 took", end - start) //part 2 took 21.737158998847008
+console.log("part 2 took", end - start); //part 2 took 21.737158998847008

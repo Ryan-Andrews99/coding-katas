@@ -32,8 +32,8 @@ export const handStrength = (hand: string): number => {
           acc[char] === undefined
             ? { ...acc, [char]: 1 }
             : { ...acc, [char]: acc[char] + 1 },
-        {}
-      )
+        {},
+      ),
   ).sort((a, b) => b - a);
   const [firstCardCount, secondCardCount] = cardOccurances;
 
@@ -48,13 +48,13 @@ export const handStrength = (hand: string): number => {
 };
 
 export const attachScore = (
-  hand: [string, number], 
-  handStrength: (hand: string) => number
+  hand: [string, number],
+  handStrength: (hand: string) => number,
 ): [string, number, number] => [...hand, handStrength(hand[0])];
 
 export const sortCards = (
   handsWithScores: [string, number, number][],
-  cardVals: Record<string, number>
+  cardVals: Record<string, number>,
 ) =>
   handsWithScores.sort((handA, handB) => {
     if (handA[2] > handB[2]) {
@@ -67,7 +67,7 @@ export const sortCards = (
 export const compareHands = (
   handA: string,
   handB: string,
-  cardVals: Record<string, number>
+  cardVals: Record<string, number>,
 ) => {
   // I hate this but I couldn't figure out a way to break out of a reduce function :(
   let sortVal = 0;
@@ -87,17 +87,17 @@ export const compareHands = (
 };
 
 export const answerPart1 = (input: string) =>
-  sortCards(parseInput(input).map(hand => attachScore(hand, handStrength)), cardVals).reduce(
-    (product, hand, index) => (product += hand[1] * (index + 1)),
-    0
-  );
+  sortCards(
+    parseInput(input).map((hand) => attachScore(hand, handStrength)),
+    cardVals,
+  ).reduce((product, hand, index) => (product += hand[1] * (index + 1)), 0);
 
 let startTime = performance.now();
 console.log(answerPart1(readTxtFile("src/adventOfCode2023/day7/input.txt")));
 let endTime = performance.now();
 console.log(`Part 1 took ${endTime - startTime} milliseconds`);
 
-const cardValsPart2 = {...cardVals, J : 0} as const
+const cardValsPart2 = { ...cardVals, J: 0 } as const;
 
 export const handStrengthPart2 = (hand: string): number => {
   const cardOccurances = hand
@@ -107,36 +107,29 @@ export const handStrengthPart2 = (hand: string): number => {
         acc[char] === undefined
           ? { ...acc, [char]: 1 }
           : { ...acc, [char]: acc[char] + 1 },
-      {}
+      {},
     );
   let { J: jokerCount, ...cardOccurancesWithoutJokers } = cardOccurances;
-  jokerCount = jokerCount ?? 0
+  jokerCount = jokerCount ?? 0;
   const [firstCardCount, secondCardCount] = Object.values(
-    cardOccurancesWithoutJokers
+    cardOccurancesWithoutJokers,
   ).sort((a, b) => b - a);
 
-  if (firstCardCount + jokerCount  === 5 || jokerCount === 5) return 7;
-  else if (firstCardCount + jokerCount === 4 && secondCardCount === 1)
-    return 6;
-  else if (firstCardCount + jokerCount === 3 && secondCardCount === 2)
-    return 5;
-  else if (firstCardCount + jokerCount === 3 && secondCardCount === 1)
-    return 4;
-  else if (firstCardCount + jokerCount === 2 && secondCardCount === 2)
-    return 3;
-  else if (firstCardCount + jokerCount === 2 && secondCardCount === 1)
-    return 2;
-  else if (firstCardCount + jokerCount === 1 && secondCardCount === 1)
-    return 1;
+  if (firstCardCount + jokerCount === 5 || jokerCount === 5) return 7;
+  else if (firstCardCount + jokerCount === 4 && secondCardCount === 1) return 6;
+  else if (firstCardCount + jokerCount === 3 && secondCardCount === 2) return 5;
+  else if (firstCardCount + jokerCount === 3 && secondCardCount === 1) return 4;
+  else if (firstCardCount + jokerCount === 2 && secondCardCount === 2) return 3;
+  else if (firstCardCount + jokerCount === 2 && secondCardCount === 1) return 2;
+  else if (firstCardCount + jokerCount === 1 && secondCardCount === 1) return 1;
   else throw new Error(`Invalid hand: ${hand}`);
 };
 
-
 export const answerPart2 = (input: string) =>
-  sortCards(parseInput(input).map(hand => attachScore(hand, handStrengthPart2)), cardValsPart2).reduce(
-    (product, hand, index) => (product += hand[1] * (index + 1)),
-    0
-  );
+  sortCards(
+    parseInput(input).map((hand) => attachScore(hand, handStrengthPart2)),
+    cardValsPart2,
+  ).reduce((product, hand, index) => (product += hand[1] * (index + 1)), 0);
 
 startTime = performance.now();
 console.log(answerPart2(readTxtFile("src/adventOfCode2023/day7/input.txt")));

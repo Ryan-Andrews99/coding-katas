@@ -3,14 +3,14 @@
 export const isInRange = (
   sourceNumber: number,
   sourceStart: number,
-  rangeLength: number
+  rangeLength: number,
 ) => sourceStart <= sourceNumber && sourceStart + rangeLength >= sourceNumber;
 
 export const destinationToSourceRange = (
   sourceNumber: number,
-  map: number[]
+  map: number[],
 ): number => {
-  if(!map) return sourceNumber
+  if (!map) return sourceNumber;
   const [destinationStart, sourceStart, rangeLength] = map;
   if (!isInRange(sourceNumber, sourceStart, rangeLength)) {
     return sourceNumber;
@@ -18,7 +18,10 @@ export const destinationToSourceRange = (
   return sourceNumber - (sourceStart - destinationStart);
 };
 
-export const filterToMapsWithinRange = (sourceNumber: number, maps: number[][]) => maps.filter(map => isInRange(sourceNumber, map[1], map[0]))
+export const filterToMapsWithinRange = (
+  sourceNumber: number,
+  maps: number[][],
+) => maps.filter((map) => isInRange(sourceNumber, map[1], map[0]));
 
 // const input = readTxtFile('src/adventOfCode2023/day5/input.txt')
 
@@ -34,8 +37,8 @@ export const returnAnswerPart1 = (input: string) => {
           .trim()
           .split(" ")
           .filter((item) => !isNaN(Number(item)))
-          .map((item) => Number(item))
-      )
+          .map((item) => Number(item)),
+      ),
   );
   const seeds = maps[0][0];
   const seedSoilMap = maps[1];
@@ -49,61 +52,70 @@ export const returnAnswerPart1 = (input: string) => {
   return seeds
     .map((seed) =>
       destinationToSourceRange(
-        seed, filterToMapsWithinRange(seed, seedSoilMap)[0]
-      )
+        seed,
+        filterToMapsWithinRange(seed, seedSoilMap)[0],
+      ),
     )
     .map((soil) =>
       destinationToSourceRange(
-        soil, filterToMapsWithinRange(soil, soilFertMap)[0]
-      )
+        soil,
+        filterToMapsWithinRange(soil, soilFertMap)[0],
+      ),
     )
     .map((soil) =>
       destinationToSourceRange(
         soil,
         fertWaterMap.filter((map) => isInRange(soil, map[1], map[2]))[0] ?? [
           0, 0, 0,
-        ]
-      )
+        ],
+      ),
     )
     .map((soil) =>
       destinationToSourceRange(
         soil,
         waterLightMap.filter((map) => isInRange(soil, map[1], map[2]))[0] ?? [
           0, 0, 0,
-        ]
-      )
+        ],
+      ),
     )
     .map((soil) =>
       destinationToSourceRange(
         soil,
         lightTempMap.filter((map) => isInRange(soil, map[1], map[2]))[0] ?? [
           0, 0, 0,
-        ]
-      )
+        ],
+      ),
     )
     .map((soil) =>
       destinationToSourceRange(
         soil,
         tempHumidMap.filter((map) => isInRange(soil, map[1], map[2]))[0] ?? [
           0, 0, 0,
-        ]
-      )
+        ],
+      ),
     )
     .map((soil) =>
       destinationToSourceRange(
         soil,
         humidLocalMap.filter((map) => isInRange(soil, map[1], map[2]))[0] ?? [
           0, 0, 0,
-        ]
-      )
-    ).reduce((min, location) => min = location < min ? location : min , Infinity)
+        ],
+      ),
+    )
+    .reduce(
+      (min, location) => (min = location < min ? location : min),
+      Infinity,
+    );
 };
 
-export const createRange = (startVal: number, rangeLength: number) => Array(rangeLength).fill(startVal).map((val, index) => val + index)
+export const createRange = (startVal: number, rangeLength: number) =>
+  Array(rangeLength)
+    .fill(startVal)
+    .map((val, index) => val + index);
 
 export const skipRangeCheck = (
   sourceNumber: number,
-  map: number[]
+  map: number[],
 ): boolean => {
   const [destinationStart, sourceStart, rangeLength] = map;
   const inRange = isInRange(sourceNumber, sourceStart, rangeLength);
@@ -114,7 +126,7 @@ export const skipRangeCheck = (
 
 export const returnMinMapping = (
   sourceNumber: number,
-  maps: number[][]
+  maps: number[][],
 ): number =>
   maps.reduce((minVal, map) => {
     if (skipRangeCheck(sourceNumber, map)) {

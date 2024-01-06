@@ -17,7 +17,7 @@ describe("parseInput tests", () => {
     T55J5 684
     KK677 28
     KTJJT 220
-    QQQJA 483`)
+    QQQJA 483`),
     ).toStrictEqual([
       ["32T3K", 765],
       ["T55J5", 684],
@@ -60,17 +60,24 @@ describe("handStrength tests", () => {
 
 describe("attachScore tests", () => {
   it("adds the hand score to last arr element", () => {
-    expect(attachScore(["AAAAA", 765], handStrength)).toStrictEqual(["AAAAA", 765, 7]);
+    expect(attachScore(["AAAAA", 765], handStrength)).toStrictEqual([
+      "AAAAA",
+      765,
+      7,
+    ]);
   });
 });
 
 describe("sortCards tests", () => {
   it("sorts by the hand score ascending if they differ", () => {
     expect(
-      sortCards([
-        ["AAAAA", 765, 7],
-        ["QQQJA", 483, 4],
-      ], cardVals)
+      sortCards(
+        [
+          ["AAAAA", 765, 7],
+          ["QQQJA", 483, 4],
+        ],
+        cardVals,
+      ),
     ).toStrictEqual([
       ["QQQJA", 483, 4],
       ["AAAAA", 765, 7],
@@ -79,22 +86,28 @@ describe("sortCards tests", () => {
 
   it("sorts by the hand score if they differ", () => {
     expect(
-      sortCards([
-        ["A23A4", 765, 2],
-        ["23456", 483, 1]
-      ], cardVals)
+      sortCards(
+        [
+          ["A23A4", 765, 2],
+          ["23456", 483, 1],
+        ],
+        cardVals,
+      ),
     ).toStrictEqual([
       ["23456", 483, 1],
-      ["A23A4", 765, 2]
+      ["A23A4", 765, 2],
     ]);
   });
 
   it("sorts by the card ordering if the hand score is equal", () => {
     expect(
-      sortCards([
-        ["KK677", 765, 3],
-        ["KTJJT", 483, 3],
-      ], cardVals)
+      sortCards(
+        [
+          ["KK677", 765, 3],
+          ["KTJJT", 483, 3],
+        ],
+        cardVals,
+      ),
     ).toStrictEqual([
       ["KTJJT", 483, 3],
       ["KK677", 765, 3],
@@ -103,19 +116,22 @@ describe("sortCards tests", () => {
 
   it("sorts multiple cards", () => {
     expect(
-      sortCards([
-        ["32T3K", 765, 2],
-        ["T55J5", 684, 4],
-        ["KK677", 28, 3],
-        ["KTJJT", 220, 3],
-        ["QQQJA", 483, 4],
-      ], cardVals)
+      sortCards(
+        [
+          ["32T3K", 765, 2],
+          ["T55J5", 684, 4],
+          ["KK677", 28, 3],
+          ["KTJJT", 220, 3],
+          ["QQQJA", 483, 4],
+        ],
+        cardVals,
+      ),
     ).toStrictEqual([
       ["32T3K", 765, 2],
-        ["KTJJT", 220, 3],
-        ["KK677", 28, 3],
-        ["T55J5", 684, 4],
-        ["QQQJA", 483, 4],
+      ["KTJJT", 220, 3],
+      ["KK677", 28, 3],
+      ["T55J5", 684, 4],
+      ["QQQJA", 483, 4],
     ]);
   });
 });
@@ -132,14 +148,15 @@ describe("compareHands tests", () => {
 
 describe("answerPart1 tests", () => {
   it("passes test data", () => {
-    expect(answerPart1(`32T3K 765
+    expect(
+      answerPart1(`32T3K 765
     T55J5 684
     KK677 28
     KTJJT 220
-    QQQJA 483`)).toStrictEqual(6440);
+    QQQJA 483`),
+    ).toStrictEqual(6440);
   });
 });
-
 
 describe("handStrengthPart2 tests", () => {
   it("returns 7 for five of a kind", () => {
@@ -177,17 +194,16 @@ describe("handStrengthPart2 tests", () => {
   it("returns 1 for 0 pairs", () => {
     expect(handStrengthPart2("23456")).toStrictEqual(1);
   });
-
 });
-
 
 describe("answerPart2 tests", () => {
   it("passes test data", () => {
-    expect(answerPart2(`32T3K 765
+    expect(
+      answerPart2(`32T3K 765
     T55J5 684
     KK677 28
     KTJJT 220
-    QQQJA 483`)).toStrictEqual(5905);
+    QQQJA 483`),
+    ).toStrictEqual(5905);
   });
 });
-

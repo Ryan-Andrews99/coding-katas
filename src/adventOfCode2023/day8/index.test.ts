@@ -1,4 +1,12 @@
-import { findNode, findNextNode, parseInput, traverseNodes, part1NodeMatch, greatestCommonDivisor, lowestCommonMultiple } from "./index";
+import {
+  findNode,
+  findNextNode,
+  parseInput,
+  traverseNodes,
+  part1NodeMatch,
+  greatestCommonDivisor,
+  lowestCommonMultiple,
+} from "./index";
 
 describe("parseInput tests", () => {
   it("parses the input correctly", () => {
@@ -72,14 +80,13 @@ describe("findNode tests", () => {
 });
 
 describe("nextNode tests", () => {
-  it('finds the next node given a direction and a current node', () => {
-    expect(findNextNode(  ["AAA", "BBB", "CCC"], 'L')).toStrictEqual('BBB')
-  })
+  it("finds the next node given a direction and a current node", () => {
+    expect(findNextNode(["AAA", "BBB", "CCC"], "L")).toStrictEqual("BBB");
+  });
 });
 
-
 describe("traverseNodes tests", () => {
-  it("traverses the nodes until ZZZ is the current node",  () => {
+  it("traverses the nodes until ZZZ is the current node", () => {
     expect(
       traverseNodes(
         ["R", "L"],
@@ -91,31 +98,21 @@ describe("traverseNodes tests", () => {
           ["EEE", "EEE", "EEE"],
           ["GGG", "GGG", "GGG"],
           ["ZZZ", "ZZZ", "ZZZ"],
-        ], part1NodeMatch
+        ],
+        part1NodeMatch,
       ),
     ).toStrictEqual(2);
   });
 });
 
 describe("gcd tests", () => {
-  it("finds the gcd",  () => {
-    expect(
-      greatestCommonDivisor(
-        54, 24
-      ),
-    ).toStrictEqual(6);
+  it("finds the gcd", () => {
+    expect(greatestCommonDivisor(54, 24)).toStrictEqual(6);
   });
 });
-
 
 describe("lcm tests", () => {
-  it("lcm",  () => {
-    expect(
-      lowestCommonMultiple(
-        12, 15
-      ),
-    ).toStrictEqual(60);
+  it("lcm", () => {
+    expect(lowestCommonMultiple(12, 15)).toStrictEqual(60);
   });
 });
-
-
